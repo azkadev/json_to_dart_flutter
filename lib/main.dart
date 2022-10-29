@@ -16,15 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -101,6 +92,144 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: [
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                ),
+                                child: TextFormField(
+                                  cursorColor: Colors.black,
+                                  onChanged: (String? text) {
+                                    text ??= "";
+                                    setState(() {
+                                      jsonToDartSetting.className = text!;
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(20.0),
+                                    hintText: 'JsonDataName',
+                                    labelText: "CLASS NAME",
+                                    labelStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    hintStyle: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14.0,
+                                    ),
+                                    disabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey.shade200,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey.shade200,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    floatingLabelStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.0,
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                ),
+                                child: TextFormField(
+                                  cursorColor: Colors.black,
+                                  onChanged: (String? text) {
+                                    text ??= "";
+                                    setState(() {
+                                      jsonToDartSetting.comment = text ?? "";
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(20.0),
+                                    hintText: '// comment hai manies',
+                                    labelText: "Comment",
+                                    labelStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    hintStyle: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14.0,
+                                    ),
+                                    disabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey.shade200,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.grey.shade200,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    floatingLabelStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.0,
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             onOff(
                               is_on: jsonToDartSetting.isStatic,
                               title: const Text("IS STATIC"),
@@ -127,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   jsonToDartSetting.isMain = !jsonToDartSetting.isMain;
                                 });
                               },
-                            ), 
+                            ),
                           ],
                         ),
                       ),
@@ -157,7 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     setState(() {
                                       resultTextEditingController.text = jsonToDart(
                                         jsonData.cast<String, dynamic>(),
-                                        className: jsonToDartSetting.className,
+                                        className: jsonToDartSetting.className.replaceAll(RegExp(r"([ ]+)", caseSensitive: false), ""),
                                         isMain: jsonToDartSetting.isMain,
                                         isUseClassName: jsonToDartSetting.isUseClassName,
                                         comment: jsonToDartSetting.comment,
